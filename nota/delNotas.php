@@ -5,7 +5,7 @@ if (isset($_POST)){
   include "../dao/Nota.php";
 
   $nota = new Nota();
-  $jsonP = $nota->getNotas();
+  $jsonP = $nota->delNotas();
   echo $jsonP;
 }
 else{

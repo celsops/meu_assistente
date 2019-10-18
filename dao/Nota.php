@@ -76,5 +76,18 @@ class Nota{
         }
 
     }
+    public function delNotas($json){
+        $conn = criarConecxao();
+        $lista = $json->dados;
+        foreach ($lista as $id) {
+            $sql = "delete from tbl_notas where col_id=".$id;
+            $result = $conn->query($sql);
+            if ($result===false){
+                $erro = $conn->error;
+                return $erro;    
+            }
+            $conn->close();
+        }
+    }
 } 
 ?>
