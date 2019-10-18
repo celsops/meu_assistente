@@ -5,11 +5,7 @@ class Nota{
     public function criarNota($json){
         session_start();
         $conn = criarConecxao();
-<<<<<<< HEAD
         $user = $json->usuario; //$_SESSION['usuario'];
-=======
-        $user = $json->usuario;
->>>>>>> cd69c9e8eca9d43f0d07acfed35ca79c309a0f11
         $dias_da_semana = $json->col_dias_semana;
         $titulo = $json->titulo;
         $descricao = $json->col_descricao;
@@ -18,55 +14,32 @@ class Nota{
 
         $sql = "insert into tbl_notas(col_titulo,col_descricao,col_hora,col_usuario) values(";
         $sql = $sql .'"'.$titulo.'","'.$descricao.'","'.$hora.'","'.$user.'")';
-<<<<<<< HEAD
 
         //echo $id_cor;
-=======
->>>>>>> cd69c9e8eca9d43f0d07acfed35ca79c309a0f11
         
-        echo $sql;
         $result = $conn->query($sql);
-        var_dump($result);
         $erro = $conn->error;
-<<<<<<< HEAD
         //$conn->close();
-=======
-        // $conn->close();
->>>>>>> cd69c9e8eca9d43f0d07acfed35ca79c309a0f11
 
         $sql = "select col_id from tbl_notas where col_titulo='". $titulo."' and col_descricao='".$descricao."'";
         $sql = $sql . "and col_hora='".$hora."' and col_usuario='".$user."';";
 
         $r = mysqli_query($conn, $sql);
-<<<<<<< HEAD
         //$conn->close();
-=======
-        
-        var_dump($r->num_rows);
->>>>>>> cd69c9e8eca9d43f0d07acfed35ca79c309a0f11
 
         if ( mysqli_num_rows($r)==0){ //Tamanho
-            // return "Dados invalidos.";
+            return "Dados invalidos.";
         }
         $row = $r->fetch_assoc();
         $id_nota = $row['col_id'];
-<<<<<<< HEAD
 
-=======
-        
-        // $conn->close();
->>>>>>> cd69c9e8eca9d43f0d07acfed35ca79c309a0f11
         foreach ($dias_da_semana as $id_dia) {
             $sql = "insert into tbl_dia_semana_nota(col_id_nota,col_id_dia) values (";
             $sql = $sql . $id_nota.",".$id_dia.");";
-            
+
             $result = $conn->query($sql);
             $erro = $conn->error;
-<<<<<<< HEAD
             //$conn->close();
-=======
-            // $conn->close();
->>>>>>> cd69c9e8eca9d43f0d07acfed35ca79c309a0f11
             if ($result===false){
                 return "Erro ao cadastrar dias.";
             }
@@ -74,19 +47,14 @@ class Nota{
         $sql = "insert into tbl_cor_nota(col_id_nota,col_cod_cor) values (";
         $sql = $sql . $id_nota.",".$id_cor.");";
         
-        echo "<br>".$sql;
         $result = $conn->query($sql);
         if ($result){
             $conn->close();
             return "OK!";
         }
         else{
-<<<<<<< HEAD
             $conn->close();
             return "Erro ao cadastrar cor.";
-=======
-            return "Erro ao cadastrar.";
->>>>>>> cd69c9e8eca9d43f0d07acfed35ca79c309a0f11
         }
         
     }
