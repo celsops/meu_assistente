@@ -1,6 +1,6 @@
 /* titulo, descrição, diasSemana, hora, data, cor, autor */
-create database if not exists  meuAssistente;
-use meuAssistente;
+-- create database if not exists  meuAssistente;
+-- use meuAssistente;
 create table if not exists tbl_notas(
     col_titulo VARCHAR(50) not null,
     col_descricao VARCHAR(200),
