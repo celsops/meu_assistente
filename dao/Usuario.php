@@ -8,24 +8,27 @@ class Usuario{
 		$senha = md5($props -> col_senha);
 
 		$sql = "select * from tbl_usuario where col_email='". $email."';";
-
+        //echo $sql;
 		$r = mysqli_query($conn, $sql);
-		$conn->close();
+		
 
 		if ( mysqli_num_rows($r)==0){ //Tamanho
-			return "Usuário não cadastrado.";
-		}
+			$conn->close();
+            return "Usuário não cadastrado.";
+        }
 
 		while($row = $r->fetch_assoc()) {
 			if($row['col_senha'] == $senha){
                 session_start();
                 $_SESSION['usuario'] = $email;
+                $conn->close();
 				return "OK!";
 			}
 		}
+        $conn->close();
 		return "Usuario ou senha incorreto.";
     }
-    public function cadastro($props){
+    public function cadastro($props){ 
         $conn = criarConecxao();
         $email = $props ->col_email;
         $senha = md5($props -> col_senha);
@@ -44,7 +47,7 @@ class Usuario{
         }
         else{
             $erro = $conn->error;
-            return error;
+            return $erro;
         }
     }
 

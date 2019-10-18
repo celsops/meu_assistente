@@ -5,30 +5,33 @@ class Nota{
     public function criarNota($json){
         session_start();
         $conn = criarConecxao();
-        $user = $_SESSION['usuario'];
+        $user = $json->usuario; //$_SESSION['usuario'];
         $dias_da_semana = $json->col_dias_semana;
         $titulo = $json->titulo;
         $descricao = $json->col_descricao;
         $hora = $json->col_hora;
         $id_cor = $json->col_cor;
+
         $sql = "insert into tbl_notas(col_titulo,col_descricao,col_hora,col_usuario) values(";
-        $sql = $sql .'"'.$titulo.'","'.$descricao.'","'.$hora.'",'.$user.')';
+        $sql = $sql .'"'.$titulo.'","'.$descricao.'","'.$hora.'","'.$user.'")';
+
+        //echo $id_cor;
         
         $result = $conn->query($sql);
         $erro = $conn->error;
-        $conn->close();
+        //$conn->close();
 
-        $sql = "select id from tbl_notas where col_titulo='". $titulo."' and col_descricao='".$descricao."'";
+        $sql = "select col_id from tbl_notas where col_titulo='". $titulo."' and col_descricao='".$descricao."'";
         $sql = $sql . "and col_hora='".$hora."' and col_usuario='".$user."';";
 
         $r = mysqli_query($conn, $sql);
-        $conn->close();
+        //$conn->close();
 
         if ( mysqli_num_rows($r)==0){ //Tamanho
             return "Dados invalidos.";
         }
         $row = $r->fetch_assoc();
-        $id_nota = $row['id'];
+        $id_nota = $row['col_id'];
 
         foreach ($dias_da_semana as $id_dia) {
             $sql = "insert into tbl_dia_semana_nota(col_id_nota,col_id_dia) values (";
@@ -36,28 +39,31 @@ class Nota{
 
             $result = $conn->query($sql);
             $erro = $conn->error;
-            $conn->close();
+            //$conn->close();
             if ($result===false){
                 return "Erro ao cadastrar dias.";
             }
         }
-        $sql = "insert into tbl_cor(col_id_nota,col_cod_cor) values (";
+        $sql = "insert into tbl_cor_nota(col_id_nota,col_cod_cor) values (";
         $sql = $sql . $id_nota.",".$id_cor.");";
         
         $result = $conn->query($sql);
         if ($result){
+            $conn->close();
             return "OK!";
         }
         else{
+            $conn->close();
             return "Erro ao cadastrar cor.";
         }
         
     }
-    public function getNotas(){
+    public function getNotas($user){
         $conn = criarConecxao();
         session_start();
-        $user = $_SESSION['usuario'];
+        //$user = $_SESSION['usuario'];
         $sql = "select * from tbl_notas where col_email='".$user."';";
+        echo $sql;
         $array_json = array();
 
         $result = $conn->query($sql);
