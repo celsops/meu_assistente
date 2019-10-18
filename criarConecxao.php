@@ -1,6 +1,6 @@
 <?php
 
-function createConnectionDB(){
+function criarConecxao(){
 	$dbhost = "localhost";
 	$dbuser = "root";
 	$dbpass = "";
