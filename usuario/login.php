@@ -1,10 +1,10 @@
 <?php
 header('Acess-Control-Allow-Origin: *');
 
-if (isset($_GET['dados'])){
+if (isset($_POST['dados'])){
     include "../dao/Usuario.php";
 
-    $jsonP = json_decode($_GET['dados']);
+    $jsonP = json_decode($_POST['dados']);
 
     $nota = new Usuario();
     $r = $nota->login($jsonP);
