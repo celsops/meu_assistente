@@ -1,16 +1,8 @@
-/* titulo, descrição, diasSemana, hora, data, cor, autor */
-<<<<<<< HEAD
--- create database if not exists  meuAssistente;
--- use meuAssistente;
-=======
-create database if not exists  meuAssistente;
-use meuAssistente;
-
->>>>>>> aac709208726dc2cbca393b2e1f99579431fcc9f
 create table if not exists tbl_notas(
     col_titulo VARCHAR(50) not null,
     col_descricao VARCHAR(200),
     col_hora VARCHAR(100),
+    col_data VARCHAR(100),
     col_usuario VARCHAR(50) not null,
     col_id bigint not null PRIMARY KEY auto_increment
 );

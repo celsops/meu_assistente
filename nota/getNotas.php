@@ -1,5 +1,6 @@
 <?php
-header('Acess-Control-Allow-Origin: *');
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type");
 
 if (isset($_GET)){
   include "../dao/Nota.php";
@@ -7,7 +8,8 @@ if (isset($_GET)){
   $j = $_GET['usuario'];
   $nota = new Nota();
   $jsonP = $nota->getNotas($j);
-  echo $jsonP;
+  // var_dump($jsonP);
+  echo json_encode($jsonP);
 }
 else{
   echo "Nenhum dado enviado!";

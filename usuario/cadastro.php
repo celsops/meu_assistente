@@ -1,5 +1,5 @@
 <?php
-header('Acess-Control-Allow-Origin: *');
+header("Access-Control-Allow-Origin: *");
 
 if (isset($_POST['dados'])){
   include "../dao/Usuario.php";

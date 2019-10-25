@@ -1,5 +1,5 @@
 <?php
-header('Acess-Control-Allow-Origin: *');
+header("Access-Control-Allow-Origin: *");
 
 if (isset($_GET['dados'])){
   include "../dao/Nota.php";
