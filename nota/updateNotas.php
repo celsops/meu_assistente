@@ -1,14 +1,15 @@
 <?php
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Headers: Content-Type");
-if (isset($_POST)){
+
+if (isset($_GET['dados'])){
   include "../dao/Nota.php";
 
+  $json = json_decode($_GET['dados']);
   $nota = new Nota();
-  var_dump($_POST['dados']);
-  $dados = json_decode($_POST['dados']);
-  $jsonP = $nota->delNotas($dados);
-  echo $jsonP;
+  $r = $nota->updateNotas($json);
+  
+  echo $r;
 }
 else{
   echo "Nenhum dado enviado!";

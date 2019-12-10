@@ -1,16 +1,16 @@
 <?php
-header("Access-Control-Allow-Origin: *");
+  header("Access-Control-Allow-Origin: *");
 
-if (isset($_POST['dados'])){
-  include "../dao/Usuario.php";
+  if (isset($_POST['dados'])){
+    include "../dao/Usuario.php";
 
-  $jsonP = json_decode($_POST['dados']);
+    $jsonP = json_decode($_POST['dados']);
 
-  $nota = new Usuario();
-  $r = $nota->cadastro($jsonP);
-  echo $r;
-}
-else{
-  echo "Nenhum dado enviado!";
-}
+    $user = new Usuario();
+    $r = $user->cadastro($jsonP);
+    echo $r;
+  }
+  else{
+    echo "Nenhum dado enviado!";
+  }
 ?>

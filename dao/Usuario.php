@@ -32,6 +32,21 @@ class Usuario{
         $conn = criarConecxao();
         $email = $props ->col_email;
         $senha = md5($props -> col_senha);
+
+        $sql = "select col_email from tbl_usuario where col_email=='".$email."';";
+        $sql = $sql.'"' .$email. '","'.$senha.'");';
+
+        $result = $conn->query($sql);
+        
+        if ($result){
+            // Usuário já está cadastrado
+            $conn->close();
+            return "Usuário já está cadastrado";
+        }
+        else{
+            $erro = $conn->error;
+            return $erro;
+        }
         
         $sql = "insert into tbl_usuario(col_email,col_senha) values(";
         $sql = $sql.'"' .$email. '","'.$senha.'");';
@@ -41,8 +56,6 @@ class Usuario{
         if ($result){
             // Usuário cadastrado com sucesso
             $conn->close();
-            session_start();
-            $_SESSION['usuario'] = $email;
             return "OK!";
         }
         else{
@@ -50,6 +63,5 @@ class Usuario{
             return $erro;
         }
     }
-
 } 
 ?>
